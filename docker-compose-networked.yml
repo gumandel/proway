@@ -2,8 +2,7 @@
 services:
   server:
     depends_on:
-      db_server:
-        condition: service_healthy
+      - db_server
     ports:
       - "8000:8000"
     build: .
@@ -30,11 +29,6 @@ services:
     networks:
       redeinterna:
         ipv4_address: 192.168.2.3
-    healthcheck: 
-      test: ["CMD", "pg_isready", "-U", "proway"] 
-      interval: 10s 
-      timeout: 5s 
-      retries: 5
 
 networks:
   redeinterna:
