@@ -1,0 +1,24 @@
+
+services:
+  server:
+    depends_on:
+      - db_server
+    ports:
+      - "8000:8000"
+    build: .
+    environment:
+      - DBNAME=proway
+      - DBUSER=proway
+      - DBPASS=proway
+      - DBHOST=db_server
+      - DJANGO_SUPERUSER_PASSWORD=proway
+      - DJANGO_SUPERUSER_USERNAME=proway
+      - DJANGO_SUPERUSER_EMAIL=dartanghan@gmail.com
+    command: /bin/bash -c "python3 ./manage.py migrate && python3 ./manage.py createsuperuser --noinput || python3 ./manage.py runserver 0.0.0.0:8000"
+
+  db_server:
+    image: postgres:13.2
+    environment:
+      - POSTGRES_DB=proway
+      - POSTGRES_USER=proway
+      - POSTGRES_PASSWORD=proway

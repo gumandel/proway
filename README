@@ -1,0 +1,14 @@
+Este projeto foi criado da seguinte maneira:
+
+- Instalar python3.11 ou superior
+- Na pasta do projeto, isntalar um venv com `python3 -m venv venv`
+- Ativar o venv com `. ./venv/bin/activate`
+- Instalar pacotes do django `pip3 install -r requirements.txt`
+
+
+# PARA EXECUTAR
+
+> docker-compose -f docker-compose.yml -p proway build
+> docker-compose -f docker-compose.yml -p proway up -d
+
+
