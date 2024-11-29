@@ -8,7 +8,9 @@ Este projeto foi criado da seguinte maneira:
 
 # PARA EXECUTAR
 
-> docker-compose -f docker-compose.yml -p proway build
-> docker-compose -f docker-compose.yml -p proway up -d
-
+```sh
+docker compose build # este comando monta/remonta o ambiente
+docker compose up -d # este comando liga o ambiente
+docker compose down # este comando desliga o ambiente
+```
 

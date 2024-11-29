@@ -2,7 +2,8 @@
 services:
   server:
     depends_on:
-      - db_server
+      db_server:
+        condition: service_healthy
     ports:
       - "8000:8000"
     build: .
@@ -14,7 +15,8 @@ services:
       - DJANGO_SUPERUSER_PASSWORD=proway
       - DJANGO_SUPERUSER_USERNAME=proway
       - DJANGO_SUPERUSER_EMAIL=dartanghan@gmail.com
-    command: /bin/bash -c "python3 ./manage.py migrate && python3 ./manage.py createsuperuser --noinput || python3 ./manage.py runserver 0.0.0.0:8000"
+    networks:
+      - rede_sistema_alunos
 
   db_server:
     image: postgres:13.2
@@ -22,3 +24,19 @@ services:
       - POSTGRES_DB=proway
       - POSTGRES_USER=proway
       - POSTGRES_PASSWORD=proway
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck: 
+      test: ["CMD", "pg_isready", "-U", "proway"] 
+      interval: 10s 
+      timeout: 5s 
+      retries: 5
+    networks:
+      - rede_sistema_alunos
+
+volumes:
+ db_data:
+
+networks:
+  rede_sistema_alunos:
+    driver: bridge
